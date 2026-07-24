@@ -1,17 +1,32 @@
-name: Python Demo
+name: CI Pipeline
 
 on:
   push:
 
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
+
+    env:
+      APP_NAME: DevOpsDemo
+
     steps:
-     - uses: actions/checkout@v4
-     - name: List files
-       run: ls -la
-     - uses: actions/setup-python@v5
-       with:
-         python-version: "3.12"
-     - name: Run Python App
-       run: python app.py
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Display Variable
+        run: echo "$APP_NAME"
+
+      - name: Run Application
+        run: python app.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-code
+          path: .
